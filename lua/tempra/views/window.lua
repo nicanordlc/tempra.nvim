@@ -16,6 +16,10 @@ end
 
 ---@param source_buf integer
 function Window:open(source_buf)
+	local current_tabstop = vim.api.nvim_get_option_value("tabstop", { buf = source_buf })
+	local current_shiftwidth = vim.api.nvim_get_option_value("shiftwidth", { buf = source_buf })
+	local current_expandtab = vim.api.nvim_get_option_value("expandtab", { buf = source_buf })
+
 	local lines = self.r:render_template(source_buf)
 	local buf = vim.api.nvim_create_buf(false, true)
 	vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
@@ -35,8 +39,12 @@ function Window:open(source_buf)
 		border = "rounded",
 	})
 
+	vim.bo[buf].expandtab = current_expandtab
+	vim.bo[buf].tabstop = current_tabstop
+	vim.bo[buf].shiftwidth = current_shiftwidth
+	vim.cmd("normal! gg=G")
+
 	vim.bo[buf].bufhidden = "wipe"
-	vim.bo[buf].modifiable = false
 
 	vim.keymap.set("n", "<esc>", function()
 		self:close()
