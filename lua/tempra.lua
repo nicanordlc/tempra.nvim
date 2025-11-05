@@ -1,4 +1,3 @@
-local log = require("tempra.log")
 local window = require("tempra.views.window")
 
 ---@alias FiletypeExtension 'tmpl' | 'template' | 'markdown' | 'text'
@@ -24,10 +23,9 @@ end
 ---@param setup_args Config | nil
 M.setup = function(setup_args)
 	config = vim.tbl_deep_extend("force", config, setup_args or {})
-	local l = log:new(config)
 	local w = window:new(config)
 
-	vim.api.nvim_create_user_command("TempraToggle", function(args)
+	vim.api.nvim_create_user_command("TempraToggle", function()
 		config.ns_id = vim.api.nvim_create_namespace("tempra_ns")
 
 		local bufnr = vim.api.nvim_get_current_buf()
