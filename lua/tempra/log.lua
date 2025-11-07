@@ -1,26 +1,16 @@
 local plugin_name = "Tempra"
 
----@class Log
----@field config Config
-local Log = {}
-
----@return Log
-function Log:new(config)
-	local o = {}
-	setmetatable(o, { __index = self })
-	o.config = config
-	return o
-end
+local M = {}
 
 ---@param text string
 ---@param level vim.log.levels
-function Log:show(text, level)
+M.show = function(text, level)
 	vim.notify(text, level, { title = plugin_name })
 end
 
 ---@param text string
 ---@param level vim.log.levels
-function Log:qlog(text, level)
+M.qshow = function(text, level)
 	local qf_type_map = {
 		[vim.log.levels.ERROR] = "E",
 		[vim.log.levels.WARN] = "W",
@@ -42,4 +32,4 @@ function Log:qlog(text, level)
 	}, "a")
 end
 
-return Log
+return M
