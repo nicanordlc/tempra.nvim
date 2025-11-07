@@ -1,16 +1,21 @@
 local window = require("tempra.views.window")
 
----@alias FiletypeExtension 'tmpl' | 'template' | 'markdown' | 'text'
+---@class Mappings
+---@field close string | string[]
 
 ---@class State
 ---@field win integer | nil
 
 ---@class Config
----@field max_recursion_depth integer
 ---@field _S State
+---@field max_recursion_depth integer
+---@field mappings Mappings
 local config = {
-	max_recursion_depth = 5,
 	_S = { win = nil },
+	max_recursion_depth = 5,
+	mappings = {
+		close = { "<esc>", "q" },
+	},
 }
 
 ---@class Tempra
