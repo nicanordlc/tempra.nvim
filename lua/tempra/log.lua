@@ -30,6 +30,7 @@ M.qshow = function(text, level)
 			type = qf_type,
 		},
 	}, "a")
+	vim.cmd("copen")
 end
 
 return M

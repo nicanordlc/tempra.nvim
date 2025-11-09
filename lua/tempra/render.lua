@@ -16,12 +16,10 @@ end
 
 ---@param error string
 function Render:print_error(error)
-	local l = log:new()
 	--
 	-- TODO: check if sending the error to the quickfix area or
 	-- just let it be on the rendered view
-	l:qlog(error, 4)
-	vim.cmd("copen")
+	log.show(error, 4)
 
 	return error
 end
