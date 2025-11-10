@@ -1,4 +1,5 @@
 local log = require("tempra.log")
+local utils = require("tempra.utils")
 
 ---@class Render
 ---@field config Config
@@ -46,7 +47,7 @@ function Render:render_content(content, depth)
 		return self:print_error("Maximun include depth reached")
 	end
 
-	return content:gsub("<%%%s*(.-)%s*%%>", function(path)
+	return utils.trim(content):gsub("<%%%s*(.-)%s*%%>", function(path)
 		local fullpath = vim.fn.fnamemodify(path, ":p")
 		local included = self:read_file(fullpath)
 		return self:render_content(included, depth + 1)
